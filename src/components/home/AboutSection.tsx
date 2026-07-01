@@ -17,7 +17,7 @@ export default function AboutSection() {
   return (
     <section className="py-24 bg-white border-b border-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
           {/* Visual Column */}
           <motion.div
@@ -82,7 +82,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="absolute -bottom-5 -left-4 rounded-2xl px-5 py-3 shadow-xl"
+              className="hidden lg:block absolute -bottom-5 -left-4 rounded-2xl px-5 py-3 shadow-xl"
               style={{
                 background: 'white',
                 border: '1px solid #d8e8e1',

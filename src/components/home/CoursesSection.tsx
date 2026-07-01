@@ -81,7 +81,7 @@ export default function CoursesSection() {
                 </div>
 
                 {/* Card Footer */}
-                <div className="px-6 pb-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="px-6 pb-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3 text-xs text-slate-400">
                     <span className="flex items-center gap-1">
                       <Clock size={13} />

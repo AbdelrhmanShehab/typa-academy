@@ -19,7 +19,7 @@ export default function MobileMenu() {
       </button>
 
       {open && (
-        <div className="md:hidden absolute top-16 right-0 left-0 bg-white border-b border-green-100 shadow-lg z-40">
+        <div className="md:hidden absolute top-[70px] right-0 left-0 bg-white border-b border-green-100 shadow-lg z-40">
           <nav className="flex flex-col p-4 gap-1">
             {NAV_LINKS.map((link) => (
               <Link

@@ -32,10 +32,10 @@ export default function Footer() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-12">
 
           {/* Brand Column */}
-          <div className="lg:col-span-1 flex flex-col gap-5 text-right">
+          <div className="sm:col-span-2 lg:col-span-1 flex flex-col gap-5 text-right">
             <AcademyLogo size={52} onDark textSize="text-xl" subTextSize="text-[11px]" />
             <p className="text-green-300/70 text-sm leading-relaxed">
               منصة رائدة لتعليم القرآن الكريم والعلوم الشرعية على يد كبار العلماء والمشايخ الحاملين للأسانيد المتصلة.
@@ -63,6 +63,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="text-right">
+            <h3 className="text-white font-bold mb-5 text-sm tracking-wide">روابط سريعة</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -118,7 +119,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div
-          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center"
+          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right"
           style={{ borderTop: '1px solid rgba(45,106,79,0.3)' }}
         >
           <p className="text-green-500/60 text-xs">

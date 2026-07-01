@@ -44,6 +44,7 @@
 html {
   direction: rtl;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -51,6 +52,7 @@ body {
   background-color: #F8F7F2;
   color: var(--color-slate-800);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* ---- Islamic Geometric Pattern (very subtle) ---- */

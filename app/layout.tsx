@@ -13,6 +13,12 @@ export const metadata: Metadata = {
   authors: [{ name: APP_NAME }],
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: {
