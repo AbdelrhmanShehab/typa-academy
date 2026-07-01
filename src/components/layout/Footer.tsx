@@ -9,11 +9,11 @@ import { Mail, Phone, MapPin, ExternalLink, PlayCircle, Share2 } from 'lucide-re
 const quickLinks = NAV_LINKS.slice(0, 5);
 
 const courses = [
-  { label: 'تعليم القرآن الكريم',       href: '/courses' },
-  { label: 'أحكام التجويد',             href: '/courses' },
-  { label: 'حفظ القرآن وتثبيته',       href: '/courses' },
-  { label: 'التفسير وعلوم القرآن',      href: '/courses' },
-  { label: 'العقيدة والفقه الشرعي',    href: '/courses' },
+  { label: 'تعليم القرآن الكريم', href: '/courses' },
+  { label: 'أحكام التجويد', href: '/courses' },
+  { label: 'حفظ القرآن وتثبيته', href: '/courses' },
+  { label: 'التفسير وعلوم القرآن', href: '/courses' },
+  { label: 'العقيدة والفقه الشرعي', href: '/courses' },
 ];
 
 export default function Footer() {
@@ -44,7 +44,7 @@ export default function Footer() {
             <div className="flex gap-3 justify-end">
               {[
                 { icon: <PlayCircle size={16} />, href: '#', label: 'يوتيوب' },
-                { icon: <Share2 size={16} />,     href: '#', label: 'تويتر' },
+                { icon: <Share2 size={16} />, href: '#', label: 'تويتر' },
                 { icon: <ExternalLink size={16} />, href: '#', label: 'فيسبوك' },
               ].map((s, i) => (
                 <a
@@ -63,7 +63,6 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="text-right">
-            <h3 className="text-white font-bold mb-5 text-sm tracking-wide">روابط سريعة</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -103,8 +102,8 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 { icon: <Mail size={15} />, text: 'info@typa-academy.com' },
-                { icon: <Phone size={15} />, text: '+966 50 000 0000' },
-                { icon: <MapPin size={15} />, text: 'المملكة العربية السعودية' },
+                { icon: <Phone size={15} />, text: '01287419214' },
+                { icon: <MapPin size={15} />, text: 'الدراسة القاهرة' },
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 justify-end">
                   <span className="text-green-300/70 text-sm">{item.text}</span>
