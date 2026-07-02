@@ -15,13 +15,13 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-20 bg-white border-b border-green-50/50">
+    <section className="py-24 bg-manuscript-bg border-b border-gold-500/10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
           title="الأسئلة الشائعة"
-          subtitle="إجابات وافية لأهم التساؤلات والاستفسارات الشائعة حول الأكاديمية ونظام الدراسة"
+          subtitle="إجابات وافية لأهم الأسئلة المتعلقة بنظام الدراسة والبرامج العلمية بالأكاديمية"
           centered
-          className="mb-12"
+          className="mb-16"
         />
 
         <div className="flex flex-col gap-4">
@@ -32,16 +32,16 @@ export default function FAQSection() {
               <div
                 key={idx}
                 className={cn(
-                  'border rounded-2xl transition-all duration-200 overflow-hidden text-right',
+                  'border transition-all duration-200 overflow-hidden text-right rounded-md',
                   isOpen
-                    ? 'border-green-300 bg-green-50/10 shadow-sm'
-                    : 'border-slate-100 bg-[#FBFBFA] hover:border-slate-200',
+                    ? 'border-gold-500 bg-white shadow-sm'
+                    : 'border-gold-500/15 bg-white hover:border-gold-500/30',
                 )}
               >
                 {/* Accordion Trigger Header */}
                 <button
                   onClick={() => toggleFAQ(idx)}
-                  className="w-full px-6 py-4 flex items-center justify-between gap-4 font-bold text-green-900 text-sm sm:text-base cursor-pointer focus:outline-none"
+                  className="w-full px-6 py-4.5 flex items-center justify-between gap-4 font-bold text-green-900 text-base cursor-pointer focus:outline-none"
                   aria-expanded={isOpen}
                 >
                   <span className="text-right leading-relaxed">
@@ -51,7 +51,7 @@ export default function FAQSection() {
                     size={18}
                     className={cn(
                       'text-slate-400 shrink-0 transition-transform duration-200',
-                      isOpen && 'transform rotate-180 text-green-600',
+                      isOpen && 'transform rotate-180 text-gold-500',
                     )}
                   />
                 </button>
@@ -65,7 +65,7 @@ export default function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
                     >
-                      <div className="px-6 pb-5 pt-1 text-slate-600 text-sm leading-relaxed border-t border-slate-100/50">
+                      <div className="px-6 pb-6 pt-1 text-slate-700 text-sm sm:text-base leading-relaxed border-t border-gold-500/10">
                         {item.answer}
                       </div>
                     </motion.div>

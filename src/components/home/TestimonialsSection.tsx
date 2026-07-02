@@ -3,17 +3,17 @@
 import { motion } from 'framer-motion';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { testimonialsData } from '@/data/testimonials';
-import { Star, Quote } from 'lucide-react';
+import { Quote } from 'lucide-react';
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-20 bg-green-50/10 border-b border-green-50/50">
+    <section className="py-24 bg-manuscript-bg border-b border-gold-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
-          title="ماذا يقول طلابنا؟"
-          subtitle="تجارب وآراء بعض الدارسين والدارسات الذين شاركونا رحلة العلم الشرعي"
+          title="شهادات وتجارب الطلاب"
+          subtitle="كلمات طيبة من طلابنا الذين منّ الله عليهم بدراسة العلم الشرعي وتلاوة القرآن في الأكاديمية"
           centered
-          className="mb-12"
+          className="mb-16"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -24,38 +24,30 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="bg-white p-6 rounded-2xl border border-green-50 shadow-sm hover:shadow-md transition-all text-right flex flex-col justify-between relative"
+              className="bg-white p-8 rounded-lg border border-gold-500/15 shadow-sm hover:shadow-md transition-all text-right flex flex-col justify-between relative"
             >
-              {/* Quote Mark background */}
-              <div className="absolute top-4 left-4 text-green-500/5">
-                <Quote size={40} className="transform -scale-x-100" />
+              {/* Traditional Large Quote Mark */}
+              <div className="absolute top-4 left-4 text-gold-500/15">
+                <Quote size={48} className="transform -scale-x-100" />
               </div>
 
-              <div>
-                {/* Rating */}
-                <div className="flex gap-1 mb-4 text-gold-500 justify-start">
-                  {Array.from({ length: test.rating }).map((_, i) => (
-                    <Star key={i} size={15} fill="currentColor" />
-                  ))}
-                </div>
-
-                {/* Comment */}
-                <p className="text-slate-600 text-sm leading-relaxed mb-6 italic">
-                  " {test.comment} "
+              <div className="relative z-10">
+                {/* Comment Text */}
+                <p className="text-slate-700 text-base leading-relaxed italic mb-8 pr-1 pt-4">
+                  « {test.comment} »
                 </p>
               </div>
 
-              {/* Student info */}
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                {/* Text-based avatar because we do not have real images */}
-                <div className="w-10 h-10 rounded-full bg-green-50 text-green-700 font-bold flex items-center justify-center text-sm border border-green-100">
+              {/* Student Bio */}
+              <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-manuscript-bg text-green-950 font-bold flex items-center justify-center text-sm border border-gold-500/20">
                   {test.name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-green-950 font-bold text-sm">
+                  <h4 className="text-green-900 font-bold text-sm">
                     {test.name}
                   </h4>
-                  <p className="text-slate-400 text-xs mt-0.5">
+                  <p className="text-slate-500 text-xs mt-0.5">
                     {test.country}
                   </p>
                 </div>
