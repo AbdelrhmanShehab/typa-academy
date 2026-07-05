@@ -39,7 +39,7 @@ export default function MeetSheikhSection() {
             المشرف العام
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-900 leading-tight">
-            السيرة العلمية لفضيلة الشيخ أحمد منصور
+            تعرف على فضيلة الشيخ أحمد منصور
           </h2>
           <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-4" />
         </div>
@@ -48,7 +48,7 @@ export default function MeetSheikhSection() {
           
           {/* ── Portrait & Social Links Column (Col span 5 on lg) ── */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="w-full max-w-[340px] bg-manuscript-bg p-4 border border-gold-500/20 rounded-lg shadow-sm">
+            <div className="w-full max-w-[340px] bg-[#FAF8F5] p-4 border border-gold-500/20 rounded-lg shadow-sm">
               <div className="aspect-[4/5] relative rounded-md overflow-hidden bg-white mb-6">
                 <Image
                   src="/images/sheikh-ahmed-mansour.png"

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { coursesData } from '@/data/courses';
 import { teachersData } from '@/data/teachers';
-import { Clock, Globe2, BookOpen, ChevronLeft, Award } from 'lucide-react';
+import { Clock, BookOpen, ChevronLeft, Award } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CoursesSection() {
@@ -14,7 +14,7 @@ export default function CoursesSection() {
   };
 
   return (
-    <section className="py-20 bg-manuscript-bg border-b border-gold-500/10">
+    <section className="py-20 bg-white border-b border-gold-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionTitle
@@ -31,89 +31,73 @@ export default function CoursesSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {coursesData.map((course, index) => (
-            <motion.div
-              key={course.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-            >
-              <Link
-                href={`/courses/${course.slug}`}
-                className="group flex flex-col h-full bg-white rounded-lg border border-gold-500/15 overflow-hidden hover:shadow-md hover:border-gold-500/30 transition-all duration-300"
+          {coursesData.map((course, index) => {
+            const levelText = course.level === 'beginner' ? 'مبتدئ' : course.level === 'intermediate' ? 'متوسط' : 'متقدم';
+            const certificateText = course.certificate ? 'شهادة معتمدة' : 'طلب حضور';
+
+            return (
+              <motion.div
+                key={course.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                <div className="flex-1">
-                  
-                  {/* Category Header */}
-                  <div className="bg-green-900 p-6 text-right relative overflow-hidden">
-                    {/* Subtle design block */}
-                    <div className="absolute top-0 left-0 w-24 h-24 bg-white/5 rounded-full -translate-x-6 -translate-y-6" />
-                    
-                    <span className="text-xs font-bold text-gold-500 tracking-wider block mb-2">
+                <Link
+                  href={`/courses/${course.slug}`}
+                  className="group flex flex-col h-full bg-[#FAF8F5] rounded-2xl border border-gold-500/15 p-6 hover:shadow-lg hover:border-gold-500/40 transition-all duration-350 text-right"
+                >
+                  {/* Category & Title */}
+                  <div className="mb-4">
+                    <span className="text-xs font-bold text-gold-600 tracking-widest block uppercase mb-2">
                       {course.category}
                     </span>
-                    <h3 className="text-lg font-bold text-white group-hover:text-gold-400 transition-colors line-clamp-2 leading-relaxed">
+                    <h3 className="font-serif text-xl font-bold text-green-950 leading-relaxed group-hover:text-green-700 transition-colors line-clamp-2">
                       {course.arabicTitle}
                     </h3>
                   </div>
 
-                  {/* Card Content Body */}
-                  <div className="p-6 text-right space-y-4">
-                    {/* Teacher info */}
-                    <div>
-                      <span className="text-xs text-slate-400 block mb-1">المعلم:</span>
-                      <p className="text-sm font-bold text-green-950">
-                        {getTeacherName(course.teacherId)}
-                      </p>
-                    </div>
+                  {/* Delicate divider */}
+                  <div className="w-16 h-[1px] bg-gradient-to-r from-gold-500/30 to-transparent mb-4" />
 
-                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">
-                      {course.description}
-                    </p>
-
-                    {/* Metadata details grid */}
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100/60 text-xs text-slate-500">
-                      <div>
-                        <span className="block text-slate-400 mb-0.5">مدة البرنامج:</span>
-                        <span className="font-semibold text-green-900 flex items-center gap-1.5 justify-end">
-                          <Clock size={13} className="text-gold-500" />
-                          {course.duration}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="block text-slate-400 mb-0.5">المستوى:</span>
-                        <span className="font-semibold text-green-900">
-                          {course.level === 'beginner' ? 'مبتدئ' : course.level === 'intermediate' ? 'متوسط' : 'متقدم'}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="block text-slate-400 mb-0.5">اللغة:</span>
-                        <span className="font-semibold text-green-900 flex items-center gap-1.5 justify-end">
-                          <Globe2 size={13} className="text-gold-500" />
-                          {course.language}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="block text-slate-400 mb-0.5">الشهادة:</span>
-                        <span className="font-semibold text-green-900 flex items-center gap-1.5 justify-end">
-                          <Award size={13} className="text-gold-500" />
-                          {course.certificate ? 'شهادة معتمدة' : 'طلب حضور'}
-                        </span>
-                      </div>
-                    </div>
+                  {/* Instructor */}
+                  <div className="text-xs text-slate-500 mb-4">
+                    <span className="opacity-75">المعلم: </span>
+                    <span className="font-bold text-green-900">{getTeacherName(course.teacherId)}</span>
                   </div>
-                </div>
 
-                {/* Card Action Link */}
-                <div className="px-6 pb-6 pt-2 text-right">
-                  <span className="inline-flex items-center justify-center w-full py-3 text-sm font-bold text-white bg-green-500 rounded-md group-hover:bg-green-600 transition-colors shadow-sm">
-                    عرض البرنامج العلمي
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                  {/* Description */}
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                    {course.description}
+                  </p>
+
+                  {/* Metadata Details Row */}
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 border-t border-slate-100 text-xs text-slate-500 mb-6">
+                    <span className="flex items-center gap-1.5">
+                      <Clock size={13} className="text-gold-500" />
+                      {course.duration}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-slate-200" />
+                    <span className="flex items-center gap-1.5">
+                      <BookOpen size={13} className="text-gold-500" />
+                      {levelText}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-slate-200" />
+                    <span className="flex items-center gap-1.5">
+                      <Award size={13} className="text-gold-500" />
+                      {certificateText}
+                    </span>
+                  </div>
+
+                  {/* Action Link */}
+                  <div className="flex items-center gap-1 text-sm font-bold text-green-700 group-hover:text-green-900 transition-colors mt-auto">
+                    <span>عرض البرنامج العلمي</span>
+                    <ChevronLeft size={16} className="transform group-hover:-translate-x-1 transition-transform duration-300" />
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

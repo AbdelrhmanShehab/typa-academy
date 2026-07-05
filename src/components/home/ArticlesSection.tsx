@@ -32,15 +32,15 @@ export default function ArticlesSection() {
   return (
     <section className="py-24 bg-white border-b border-gold-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="text-right">
             <span className="text-gold-500 text-xs font-bold tracking-widest uppercase block mb-3">
-              من كتابات المشرف العام
+              من كتابات هيئة تدريس الأكاديمية
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-900 leading-tight">
-              مقالات وبحوث الشيخ أحمد منصور
+              مقالات وبحوث
             </h2>
           </div>
           <Link

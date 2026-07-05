@@ -1,47 +1,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function MessageSection() {
   return (
-    <section className="py-20 bg-white border-b border-gold-500/10">
+    <section className="py-20 bg-manuscript-bg border-b border-gold-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Title */}
-        <div className="text-center mb-16">
-          <span className="text-gold-500 text-xs font-bold tracking-widest uppercase block mb-3">
-            كلمة المشرف العام
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-900 leading-tight">
-            رسالة من فضيلة الشيخ أحمد منصور
-          </h2>
-          <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-4" />
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* ── Video Column (Col span 6 on lg) ── */}
-          <div className="lg:col-span-6 w-full">
-            <div className="bg-manuscript-bg rounded-lg overflow-hidden border border-gold-500/15 shadow-md aspect-video relative">
-              <video
-                src="/videos/sheikh-message.mp4"
-                poster="/images/sheikh-ahmed-mansour.png"
-                controls
-                className="w-full h-full object-cover"
-              >
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-slate-700">
-                  <p className="font-bold mb-2">رسالة مرئية من فضيلة الشيخ أحمد منصور</p>
-                  <p className="text-xs">المشغل غير مدعوم في متصفحك أو الملف غير متوفر حالياً.</p>
-                </div>
-              </video>
-            </div>
-          </div>
-
-          {/* ── Message / Text Column (Col span 6 on lg) ── */}
+          {/* ── Message / Text Column (Right on Desktop, span 6) ── */}
           <div className="lg:col-span-6 text-right flex flex-col justify-center">
-            <h3 className="text-xl lg:text-2xl font-bold text-green-900 mb-6">
-              أهلاً بكم في رحاب العلم الشريف
-            </h3>
+            <span className="text-gold-500 text-xs font-bold tracking-widest uppercase block mb-3">
+              كلمة المشرف العام
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-900 leading-tight mb-6">
+              رسالة من فضيلة الشيخ أحمد منصور
+            </h2>
+            <div className="w-16 h-0.5 bg-gold-500 mb-8" />
             
             <div className="space-y-4 text-slate-700 text-base leading-relaxed mb-8">
               <p>
@@ -62,12 +39,29 @@ export default function MessageSection() {
 
             {/* Button */}
             <div className="self-start">
-              <a
-                href="#meet-sheikh"
+              <Link
+                href="/teachers/1"
                 className="inline-block px-7 py-3 bg-green-500 text-white font-bold rounded-md hover:bg-green-600 transition-colors shadow-sm text-sm"
               >
                 تعرف على الشيخ
-              </a>
+              </Link>
+            </div>
+          </div>
+
+          {/* ── Video Column (Left on Desktop, span 6) ── */}
+          <div className="lg:col-span-6 w-full">
+            <div className="bg-manuscript-bg rounded-lg overflow-hidden border border-gold-500/15 shadow-md aspect-video relative">
+              <video
+                src="/videos/sheikh-message.mp4"
+                poster="/images/sheikh-ahmed-mansour.png"
+                controls
+                className="w-full h-full object-cover"
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-slate-700">
+                  <p className="font-bold mb-2">رسالة مرئية من فضيلة الشيخ أحمد منصور</p>
+                  <p className="text-xs">المشغل غير مدعوم في متصفحك أو الملف غير متوفر حالياً.</p>
+                </div>
+              </video>
             </div>
           </div>
 

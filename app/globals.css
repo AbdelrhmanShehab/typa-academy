@@ -40,6 +40,7 @@
 
   /* --- Typography --- */
   --font-sans: 'Cairo', 'Inter', sans-serif;
+  --font-serif: 'Amiri', serif;
 }
 
 /* ---- Base Styles ---- */
@@ -112,6 +113,15 @@ body {
 .animate-spin-reverse { animation: rotateSlowReverse 25s linear infinite; }
 .animate-pulse-glow   { animation: pulseGlow 2.5s ease-in-out infinite; }
 .animate-fade-in-up   { animation: fadeInUp 0.7s ease-out both; }
+
+/* ---- Hide Scrollbar Utility ---- */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 /* ---- Shimmer Text ---- */
 .text-shimmer {

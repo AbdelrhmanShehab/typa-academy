@@ -18,20 +18,20 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero Section introducing the Sheikh */}
+      {/* 1. Hero Section introducing the Academy */}
       <HomeHero />
       
-      {/* 2. Message From The Sheikh (HTML5 Video & welcome text) */}
-      <MessageSection />
+      {/* 2. Scientific Programs (البرامج العلمية) */}
+      <CoursesSection />
       
-      {/* 3. About Typa Academy (Story, Mission, Vision) */}
-      <AboutSection />
+      {/* 3. Message From The Sheikh (HTML5 Video & welcome text) */}
+      <MessageSection />
       
       {/* 4. Meet The Sheikh (Premium biography & timeline) */}
       <MeetSheikhSection />
       
-      {/* 5. Scientific Programs (البرامج العلمية) */}
-      <CoursesSection />
+      {/* 5. About Typa Academy (Story, Mission, Vision) */}
+      <AboutSection />
       
       {/* 6. Educational Methodology (4 Pillars) */}
       <MethodologySection />

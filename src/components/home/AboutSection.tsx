@@ -14,7 +14,7 @@ export default function AboutSection() {
           <div className="lg:col-span-5 space-y-10 lg:sticky lg:top-24 order-2 lg:order-1">
             
             {/* Mission Box */}
-            <div className="p-8 bg-white border border-gold-500/15 rounded-lg shadow-sm text-right">
+            <div className="p-8 bg-white border border-gold-500/10 rounded-lg shadow-sm text-right">
               <span className="text-gold-500 text-xs font-bold tracking-widest uppercase block mb-2">
                 رسالتنا
               </span>
@@ -27,7 +27,7 @@ export default function AboutSection() {
             </div>
 
             {/* Vision Box */}
-            <div className="p-8 bg-white border border-gold-500/15 rounded-lg shadow-sm text-right">
+            <div className="p-8 bg-white border border-gold-500/10 rounded-lg shadow-sm text-right">
               <span className="text-gold-500 text-xs font-bold tracking-widest uppercase block mb-2">
                 رؤيتنا
               </span>
