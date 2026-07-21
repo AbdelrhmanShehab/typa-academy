@@ -1,64 +1,56 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  query,
-  where,
-  orderBy,
-  serverTimestamp,
-} from 'firebase/firestore';
-import db from '@/firebase/firestore';
+import { supabase } from '@/lib/supabase';
 import { Article, CreateArticleInput, UpdateArticleInput } from '@/types';
 
-const COLLECTION = 'articles';
+const TABLE = 'articles';
 
 export async function getArticles(): Promise<Article[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    orderBy('publishDate', 'desc'),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Article));
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .order('publish_date', { ascending: false });
+  if (error) throw error;
+  return data as Article[];
 }
 
 export async function getArticleById(id: string): Promise<Article | null> {
-  const ref = doc(db, COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) return null;
-  return { id: snapshot.id, ...snapshot.data() } as Article;
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) return null;
+  return data as Article;
 }
 
 export async function getFeaturedArticles(): Promise<Article[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    where('featured', '==', true),
-    orderBy('publishDate', 'desc'),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Article));
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('featured', true)
+    .order('publish_date', { ascending: false });
+  if (error) throw error;
+  return data as Article[];
 }
 
 export async function createArticle(data: CreateArticleInput): Promise<string> {
-  const ref = await addDoc(collection(db, COLLECTION), {
-    ...data,
-    createdAt: serverTimestamp(),
-  });
-  return ref.id;
+  const { data: inserted, error } = await supabase
+    .from(TABLE)
+    .insert({ ...data, created_at: new Date().toISOString() })
+    .select('id')
+    .single();
+  if (error) throw error;
+  return inserted.id;
 }
 
-export async function updateArticle(
-  id: string,
-  data: UpdateArticleInput,
-): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await updateDoc(ref, { ...data, updatedAt: serverTimestamp() });
+export async function updateArticle(id: string, data: UpdateArticleInput): Promise<void> {
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
 }
 
 export async function deleteArticle(id: string): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await deleteDoc(ref);
+  const { error } = await supabase.from(TABLE).delete().eq('id', id);
+  if (error) throw error;
 }

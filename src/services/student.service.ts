@@ -1,50 +1,46 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  query,
-  orderBy,
-  serverTimestamp,
-} from 'firebase/firestore';
-import db from '@/firebase/firestore';
+import { supabase } from '@/lib/supabase';
 import { Student, CreateStudentInput, UpdateStudentInput } from '@/types';
 
-const COLLECTION = 'students';
+const TABLE = 'students';
 
 export async function getStudents(): Promise<Student[]> {
-  const q = query(collection(db, COLLECTION), orderBy('arabicName'));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .order('arabic_name');
+  if (error) throw error;
+  return data as Student[];
 }
 
 export async function getStudentById(id: string): Promise<Student | null> {
-  const ref = doc(db, COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) return null;
-  return { id: snapshot.id, ...snapshot.data() } as Student;
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) return null;
+  return data as Student;
 }
 
 export async function createStudent(data: CreateStudentInput): Promise<string> {
-  const ref = await addDoc(collection(db, COLLECTION), {
-    ...data,
-    createdAt: serverTimestamp(),
-  });
-  return ref.id;
+  const { data: inserted, error } = await supabase
+    .from(TABLE)
+    .insert({ ...data, created_at: new Date().toISOString() })
+    .select('id')
+    .single();
+  if (error) throw error;
+  return inserted.id;
 }
 
-export async function updateStudent(
-  id: string,
-  data: UpdateStudentInput,
-): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await updateDoc(ref, { ...data, updatedAt: serverTimestamp() });
+export async function updateStudent(id: string, data: UpdateStudentInput): Promise<void> {
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
 }
 
 export async function deleteStudent(id: string): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await deleteDoc(ref);
+  const { error } = await supabase.from(TABLE).delete().eq('id', id);
+  if (error) throw error;
 }

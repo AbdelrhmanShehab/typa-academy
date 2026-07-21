@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 
@@ -8,6 +12,31 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { user, role, loading, isAdmin, isTeacher } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+    // Not logged in at all → go to dashboard login
+    if (!user) {
+      router.replace('/dashboard/login');
+      return;
+    }
+    // Logged in but not admin/teacher (e.g. a student) → also block
+    if (!isAdmin && !isTeacher) {
+      router.replace('/dashboard/login');
+    }
+  }, [user, role, loading, isAdmin, isTeacher, router]);
+
+  // Show spinner while determining auth state
+  if (loading || !user || (!isAdmin && !isTeacher)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+        <Loader2 className="animate-spin text-green-400" size={32} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <DashboardSidebar />

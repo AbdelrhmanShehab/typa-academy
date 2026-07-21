@@ -1,55 +1,47 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  query,
-  where,
-  orderBy,
-  serverTimestamp,
-} from 'firebase/firestore';
-import db from '@/firebase/firestore';
+import { supabase } from '@/lib/supabase';
 import { Lesson, CreateLessonInput, UpdateLessonInput } from '@/types';
 
-const COLLECTION = 'lessons';
+const TABLE = 'lessons';
 
 export async function getLessonsByCourse(courseId: string): Promise<Lesson[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    where('courseId', '==', courseId),
-    orderBy('order'),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Lesson));
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('course_id', courseId)
+    .order('order');
+  if (error) throw error;
+  return data as Lesson[];
 }
 
 export async function getLessonById(id: string): Promise<Lesson | null> {
-  const ref = doc(db, COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) return null;
-  return { id: snapshot.id, ...snapshot.data() } as Lesson;
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) return null;
+  return data as Lesson;
 }
 
 export async function createLesson(data: CreateLessonInput): Promise<string> {
-  const ref = await addDoc(collection(db, COLLECTION), {
-    ...data,
-    createdAt: serverTimestamp(),
-  });
-  return ref.id;
+  const { data: inserted, error } = await supabase
+    .from(TABLE)
+    .insert({ ...data, created_at: new Date().toISOString() })
+    .select('id')
+    .single();
+  if (error) throw error;
+  return inserted.id;
 }
 
-export async function updateLesson(
-  id: string,
-  data: UpdateLessonInput,
-): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await updateDoc(ref, { ...data, updatedAt: serverTimestamp() });
+export async function updateLesson(id: string, data: UpdateLessonInput): Promise<void> {
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
 }
 
 export async function deleteLesson(id: string): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await deleteDoc(ref);
+  const { error } = await supabase.from(TABLE).delete().eq('id', id);
+  if (error) throw error;
 }

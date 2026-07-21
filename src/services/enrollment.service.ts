@@ -1,69 +1,49 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  query,
-  where,
-  orderBy,
-  serverTimestamp,
-} from 'firebase/firestore';
-import db from '@/firebase/firestore';
-import {
-  Enrollment,
-  CreateEnrollmentInput,
-  UpdateEnrollmentInput,
-} from '@/types';
+import { supabase } from '@/lib/supabase';
+import { Enrollment, CreateEnrollmentInput, UpdateEnrollmentInput } from '@/types';
 
-const COLLECTION = 'enrollments';
+const TABLE = 'enrollments';
 
 export async function getEnrollments(): Promise<Enrollment[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    orderBy('enrolledAt', 'desc'),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Enrollment));
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .order('enrolled_at', { ascending: false });
+  if (error) throw error;
+  return data as Enrollment[];
 }
 
-export async function getEnrollmentsByStudent(
-  studentId: string,
-): Promise<Enrollment[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    where('studentId', '==', studentId),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Enrollment));
+export async function getEnrollmentsByStudent(studentId: string): Promise<Enrollment[]> {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('student_id', studentId);
+  if (error) throw error;
+  return data as Enrollment[];
 }
 
-export async function getEnrollmentsByCourse(
-  courseId: string,
-): Promise<Enrollment[]> {
-  const q = query(
-    collection(db, COLLECTION),
-    where('courseId', '==', courseId),
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Enrollment));
+export async function getEnrollmentsByCourse(courseId: string): Promise<Enrollment[]> {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('course_id', courseId);
+  if (error) throw error;
+  return data as Enrollment[];
 }
 
-export async function createEnrollment(
-  data: CreateEnrollmentInput,
-): Promise<string> {
-  const ref = await addDoc(collection(db, COLLECTION), {
-    ...data,
-    createdAt: serverTimestamp(),
-  });
-  return ref.id;
+export async function createEnrollment(data: CreateEnrollmentInput): Promise<string> {
+  const { data: inserted, error } = await supabase
+    .from(TABLE)
+    .insert({ ...data, created_at: new Date().toISOString() })
+    .select('id')
+    .single();
+  if (error) throw error;
+  return inserted.id;
 }
 
-export async function updateEnrollment(
-  id: string,
-  data: UpdateEnrollmentInput,
-): Promise<void> {
-  const ref = doc(db, COLLECTION, id);
-  await updateDoc(ref, { ...data, updatedAt: serverTimestamp() });
+export async function updateEnrollment(id: string, data: UpdateEnrollmentInput): Promise<void> {
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
 }
