@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
@@ -14,9 +14,12 @@ export default function DashboardLayout({
 }) {
   const { user, role, loading, isAdmin, isTeacher } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isLoginPage = pathname === '/dashboard/login';
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || isLoginPage) return;
     // Not logged in at all → go to dashboard login
     if (!user) {
       router.replace('/dashboard/login');
@@ -26,7 +29,12 @@ export default function DashboardLayout({
     if (!isAdmin && !isTeacher) {
       router.replace('/dashboard/login');
     }
-  }, [user, role, loading, isAdmin, isTeacher, router]);
+  }, [user, role, loading, isAdmin, isTeacher, isLoginPage, router]);
+
+  // Render login page directly without blocking with auth guard
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   // Show spinner while determining auth state
   if (loading || !user || (!isAdmin && !isTeacher)) {

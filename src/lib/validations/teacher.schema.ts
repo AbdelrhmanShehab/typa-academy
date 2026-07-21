@@ -30,9 +30,9 @@ export const teacherSchema = z.object({
   languages: z.array(z.string()).min(1, 'يجب إضافة لغة واحدة على الأقل'),
   email: z.string().email('البريد الإلكتروني غير صالح'),
   phone: z.string().min(7, 'رقم الهاتف غير صالح'),
-  socialLinks: z.array(socialLinkSchema).default([]),
-  books: z.array(bookSchema).default([]),
-  certificates: z.array(certificateSchema).default([]),
+  socialLinks: z.array(socialLinkSchema),
+  books: z.array(bookSchema),
+  certificates: z.array(certificateSchema),
   status: z.enum(['active', 'inactive']),
 });
 

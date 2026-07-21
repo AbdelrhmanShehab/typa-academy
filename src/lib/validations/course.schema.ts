@@ -19,7 +19,7 @@ export const courseSchema = z.object({
   price: z.number().min(0, 'السعر يجب أن يكون صفراً أو أكثر'),
   isFree: z.boolean(),
   enrollmentLimit: z.number().min(1, 'حد التسجيل يجب أن يكون 1 على الأقل'),
-  requirements: z.string().default(''),
+  requirements: z.string(),
   objectives: z.string().min(1, 'أهداف الدورة مطلوبة'),
   targetAudience: z.string().min(1, 'الفئة المستهدفة مطلوبة'),
   certificate: z.boolean(),

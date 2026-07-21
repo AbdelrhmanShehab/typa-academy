@@ -13,7 +13,7 @@ export const studentSchema = z.object({
   languages: z.array(z.string()).min(1, 'يجب تحديد لغة واحدة على الأقل'),
   email: z.string().email('البريد الإلكتروني غير صالح'),
   phone: z.string().min(7, 'رقم الهاتف غير صالح'),
-  books: z.array(studentBookSchema).default([]),
+  books: z.array(studentBookSchema),
 });
 
 export type StudentFormValues = z.infer<typeof studentSchema>;

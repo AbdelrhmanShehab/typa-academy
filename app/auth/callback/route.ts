@@ -7,8 +7,10 @@ export async function GET(request: NextRequest) {
   const next = searchParams.get('next') ?? '/';
 
   if (code) {
+    const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const supabaseUrl = rawUrl.replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
     const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      supabaseUrl,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
